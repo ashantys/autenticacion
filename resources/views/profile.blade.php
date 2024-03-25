@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="p-4 sm:p-8 border border-cyan-400shadow sm:rounded-lg">
+            <div class="p-4 sm:p-8  bg-cyan-800 border border-cyan-400 shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <livewire:profile.delete-user-form />
                 </div>
