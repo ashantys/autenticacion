@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeMail;
+use App\Mail\LoginAlertMail;
 
 new #[Layout('layouts.guest')] class extends Component
 {
@@ -31,6 +34,8 @@ new #[Layout('layouts.guest')] class extends Component
         event(new Registered($user = User::create($validated)));
 
         Auth::login($user);
+
+        Mail::to($user->email)->send(new WelcomeMail($user)); //Send Welcome Email
 
         $this->redirect(route('dashboard', absolute: false), navigate: true);
     }

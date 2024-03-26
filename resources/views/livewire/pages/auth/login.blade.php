@@ -4,6 +4,10 @@ use App\Livewire\Forms\LoginForm;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeMail;
+use App\Mail\LoginAlertMail;
+
 
 new #[Layout('layouts.guest')] class extends Component
 {
@@ -19,6 +23,10 @@ new #[Layout('layouts.guest')] class extends Component
         $this->form->authenticate();
 
         Session::regenerate();
+
+        $user = Auth::user();//Get the actual auth user
+
+        Mail::to($user->email)->send(new LoginAlertMail($user));//Send Login Alert
 
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
